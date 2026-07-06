@@ -38,15 +38,10 @@ button:hover {
 #bot-oscuro {
   background-color: transparent;
   border: none;
-  position: absolute;
-  right: 10px;
-  top: 10px;
+  font-size: 1.2rem;
 }
 
 #btnCerrarSesion {
-  position: absolute;
-  right: 60px;
-  top: 10px;
   background-color: #34495e
 }
 body.dark-mode #volver {
@@ -54,9 +49,7 @@ body.dark-mode #volver {
 }
 #btnLoguearse {
   background-color: #27ae60;
-  position: absolute;
-  right: 60px;
-  top: 10px;
+  
 }
 
 /* CONTENEDOR */
@@ -456,22 +449,94 @@ body.dark-mode h1 {
 
 nav {
   background-color: #222;
-  padding: 15px;
-  text-align: center;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
-nav a {
+.nav-links a {
   color: white;
   text-decoration: none;
-  margin: 0 15px;
+  margin-right: 20px;
   font-weight: bold;
   transition: 0.3s;
 }
 
-nav a:hover {
+.nav-links a:hover {
   color: #4cd964;
 }
 
+.nav-acciones {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 15px 20px;
+}
+
+.admin-header h1 {
+  margin: 0;
+  flex: 1;
+  text-align: center;
+  color: white;
+}
+
+.admin-acciones {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-header .btn-volver,
+.admin-header #btnCerrarSesion {
+  background-color: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: white;
+}
+
+.admin-header .btn-volver:hover,
+.admin-header #btnCerrarSesion:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.admin-header #bot-oscuro {
+  font-size: 1.4rem;
+  background-color: transparent;
+  border: none;
+}
+
+@media (max-width: 700px) {
+  .admin-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .admin-header h1 {
+    order: 1;
+    flex: none;
+    font-size: 1.6rem;
+  }
+
+  .admin-header .btn-volver {
+    order: 2;
+  }
+
+  .admin-header .admin-acciones {
+    order: 3;
+    justify-content: center;
+    width: 100%;
+  }
+}
 /* HERO DOLAR */
 
 .hero-dolar {
@@ -547,16 +612,13 @@ body.dark-mode .footer-copy {
 }
 
 .btn-volver {
-  position: absolute;
-  top: 13px;
-  left: 20px;
-
   background-color: #34495e;
   color: white;
   padding: 10px 15px;
   border-radius: 8px;
   text-decoration: none;
   font-weight: bold;
+  white-space: nowrap;
 }
 
 .btn-volver:hover {

@@ -47,7 +47,7 @@ const email = document.getElementById("email");
 const foto = document.getElementById("foto");
 
 // Cuando arranca la página, ¿hay un token guardado?
-const tokenGuardado = localStorage.getItem("token");
+const tokenGuardado = sessionStorage.getItem("token");
 
 if (tokenGuardado) {
   obtenerDatosDelUsuario(tokenGuardado);
@@ -64,35 +64,35 @@ if (btnLogin) {
     };
 
     fetch("https://dummyjson.com/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(datos)
-    })
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(datos)
+})
 
-      .then(function (respuesta) {
+  .then(function (respuesta) {
 
-        if (!respuesta.ok) {
-          window.location.href = "index.html";
-          return;
-        }
+    if (!respuesta.ok) {
+      mensaje.textContent = "Usuario o contraseña incorrectos";
+      return;
+    }
 
-        return respuesta.json();
-      })
+    return respuesta.json();
+  })
 
-      .then(function (data) {
+  .then(function (data) {
 
-        if (!data) return;
+    if (!data) return;
 
-        console.log("Respuesta del login:", data);
+    console.log("Respuesta del login:", data);
 
-        localStorage.setItem("token", data.accessToken);
+    sessionStorage.setItem("token", data.accessToken);
 
-        window.location.href = "admin.html";
-      })
+    window.location.href = "admin.html";
+  })
 
-      .catch(function (error) {
-        mensaje.textContent = error.message;
-      });
+  .catch(function (error) {
+    mensaje.textContent = "Ocurrió un error al iniciar sesión";
+  });
 
   });
 
@@ -126,7 +126,7 @@ function obtenerDatosDelUsuario(token) {
 
     .catch(function (error) {
       console.log("Error:", error.message);
-      localStorage.removeItem("token");
+      sessionStorage.removeItem("token");
     });
 }
 
@@ -155,7 +155,7 @@ if (btnSalir) {
 
   btnSalir.addEventListener("click", function () {
 
-    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
 
     if (zonaLogin) {
       zonaLogin.hidden = false;
@@ -176,9 +176,27 @@ if (btnSalir) {
 const btnLoguearse = document.getElementById("btnLoguearse");
 
 if (btnLoguearse) {
-  btnLoguearse.addEventListener("click", function () {
-    window.location.href ="login.html";
-  });
+
+  const tokenIndex = sessionStorage.getItem("token");
+
+  if (tokenIndex) {
+    // Ya está logueado
+    btnLoguearse.textContent = "Cerrar sesión";
+
+    btnLoguearse.addEventListener("click", function () {
+      sessionStorage.removeItem("token");
+      window.location.reload();
+    });
+
+  } else {
+    // No está logueado
+    btnLoguearse.textContent = "Iniciar sesión";
+
+    btnLoguearse.addEventListener("click", function () {
+      window.location.href = "login.html";
+    });
+  }
+
 }
 const cotizacionActual = document.getElementById("cotizacion-actual");
 const cotizacionActual1 = document.getElementById("cotizacion-actual1");
@@ -344,7 +362,7 @@ const btnCerrarSesion = document.getElementById("btnCerrarSesion");
 
 if (btnCerrarSesion) {
     btnCerrarSesion.addEventListener("click", function() {
-        localStorage.removeItem("token");
+        sessionStorage.removeItem("token");
         window.location.href = "index.html";
     });
 }

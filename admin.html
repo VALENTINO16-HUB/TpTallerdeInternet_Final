@@ -3,6 +3,11 @@
 
 <head>
     <meta charset="UTF-8">
+    <script>
+  if (!sessionStorage.getItem("token")) {
+    window.location.href = "login.html";
+  }
+</script>
     <link rel="stylesheet" href="CSS/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,15 +18,14 @@
 
 <body>
 
+    <header class="admin-header">
+    <a href="index.html" class="btn-volver">Volver al inicio</a>
     <h1>Panel de Administrador</h1>
-    <button type="button" id="bot-oscuro">🌚</button>
-    <a href="index.html" class="btn-volver">
-        Volver al inicio
-    </a>
-
-    <button id="btnCerrarSesion">
-        Cerrar sesión
-    </button>
+    <div class="admin-acciones">
+        <button type="button" id="bot-oscuro">🌚</button>
+        <button id="btnCerrarSesion">Cerrar sesión</button>
+    </div>
+</header>
 
     <hr>
 
